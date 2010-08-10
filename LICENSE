@@ -3,7 +3,9 @@ LICENSE
 
 The MIT License
 
-Copyright (c) 2008 Bookmate.ru
+Copyright (c) 2002 Charikar, Simhash algorythm
+Copyright (c) 2009 Andre Hagenbruch, Python implementation
+Copyright (c) 2010 Bookmate.ru
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
