@@ -33,13 +33,7 @@ class Simhash
   end
   
   def hamming_distance(other_hash)
-    x = (self.hash ^ other_hash.hash) & ((1 << self.hashbits) - 1)
-    tot = 0
-    while x do
-      tot += 1
-      x &= x-1
-    end
-    return tot
+    self.hash.hamming_distance_to(other_hash.hash)
   end
 
   def string_hash(string)
