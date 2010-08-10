@@ -1,6 +1,6 @@
 $LOAD_PATH << File.join(File.dirname(__FILE__), 'lib')
 
-include_files = ["README*", "LICENSE", "Rakefile", "init.rb", "{lib}/**/*"].map do |glob|
+include_files = ["README*", "LICENSE", "Rakefile", "init.rb", "{lib,rails}/**/*"].map do |glob|
   Dir[glob]
 end.flatten
 exclude_files = [].map do |glob|

@@ -3,6 +3,7 @@ class Simhash
   def initialize(tokens='', hashbits=728)
     self.hashbits = hashbits
     self.hash = self.simhash(tokens)
+    hash
   end
   
   def to_s
