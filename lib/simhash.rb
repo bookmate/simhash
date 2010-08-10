@@ -10,6 +10,10 @@ class Simhash
     self.hash.to_s
   end
   
+  def to_i
+    self.hash.to_i
+  end
+  
   def simhash(tokens)
     v = [0] * self.hashbits
     tokens.each do |token|
