@@ -1,6 +1,6 @@
 class Simhash
   attr_accessor :hashbits, :hash
-  def initialize(tokens='', hashbits=728)
+  def initialize(tokens='', hashbits=128)
     self.hashbits = hashbits
     self.hash = self.simhash(tokens)
     hash
