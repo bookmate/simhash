@@ -16,12 +16,13 @@ class Simhash
   
   def simhash(tokens)
     v = [0] * self.hashbits
+    masks = v.dup
+    masks.each_with_index {|e, i| masks[i] = (1 << i)}
     tokens.each do |token|
-      hashed_token = self.string_hash(token)
+      hashed_token = token.hash_wl(self.hashbits)
       bitmask = 0
       self.hashbits.times do |i|
-        bitmask = 1 << i
-        v[i] += (hashed_token & bitmask).zero? ? -1 : +1
+        v[i] += (hashed_token & masks[i]).zero? ? -1 : +1
       end
     end
    
@@ -42,8 +43,10 @@ class Simhash
     else
       x = string[0] << 7
       m = 1000003
-      mask = 2**self.hashbits - 1
-      string.each_byte{ |char| x = ((x * m) ^ char) & mask }
+      mask = (1<<self.hashbits) - 1
+      string.each_byte do |char| 
+        x = ((x * m) ^ char) & mask
+      end
           
       x ^= string.size
       x = -2 if x == -1
