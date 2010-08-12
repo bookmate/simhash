@@ -1,6 +1,6 @@
 class String
-  def simhash(hashbits=128)
-    Simhash.new(self.split, hashbits)
+  def simhash(options={})
+    Simhash.hash(self.split, options={})
   end
   
   # string hash of predefined length
