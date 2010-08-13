@@ -16,7 +16,7 @@ module Simhash
       token = token.gsub(/(\s|\d|\W)+/u,' ').strip
       
       next if token.size < 2 
-      next if options[:stop_words] && Stopwords::ALL.include?(token.strip.mb_chars.downcase)
+      next if options[:stop_words] && Stopwords::ALL.index(" #{token.strip.mb_chars.downcase} ") != nil
       
       #token = Lingua.stemmer(token, :language => :ru)
       hashed_token = token.hash_wl(hashbits)
