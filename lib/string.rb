@@ -1,7 +1,9 @@
 class String
   def simhash(options={})
-    Simhash.hash(self.split, options)
+    split_by = options.delete(:split_by) || " "
+    Simhash.hash(self.split(split_by), options)
   end
+
   
   # string hash of predefined length
   def hash_wl(length)
