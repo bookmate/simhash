@@ -14,7 +14,7 @@ class SimhashStringTest < Test::Unit::TestCase
   end
   
   def test_hashing
-    assert_equal "Word".hash_wl(64), 10958914953375318724
+    assert_equal "Word".hash_wl(64).to_i, 10958914953375318724
   end
   
 end

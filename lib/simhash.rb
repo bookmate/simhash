@@ -23,8 +23,9 @@ module Simhash
       token = token.split(" ").reject{ |w| Stopwords::ALL.index(" #{w} ") != nil }.join(" ") if options[:stop_words]
             
       next if token.size.zero? || token.size < token_min_size
-
-      hashed_token = token.hash_wl(hashbits)
+      #puts token
+      hashed_token = token.hash_wl(hashbits).to_i
+      #puts "ok"
       bitmask = 0
       hashbits.times do |i|
         v[i] += (hashed_token & masks[i]).zero? ? -1 : +1
