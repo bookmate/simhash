@@ -1,6 +1,8 @@
 $KCODE = 'u' 
-require 'active_support/core_ext/string/multibyte'
 require File.join(File.dirname(__FILE__), "simhash", "stopwords")
+require 'string'
+require 'integer'
+require 'string_hashing'
 
 module Simhash  
   def self.hash(tokens, options={})
@@ -15,7 +17,7 @@ module Simhash
       # cutting punctuation (\302\240 is unbreakable space)
       token = token.gsub(/(\s|\d|\W|\302\240| *— *|[«»\…\-\–\—]| )+/u,' ') if !options[:preserve_punctuation]
       
-      token = token.strip.mb_chars.downcase
+      token = Unicode::downcase(token.strip)
       
       # cutting stop-words
       token = token.split(" ").reject{ |w| Stopwords::ALL.index(" #{w} ") != nil }.join(" ") if options[:stop_words]

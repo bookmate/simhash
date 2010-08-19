@@ -1,12 +1,15 @@
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
+require 'rake/extensiontask'
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), 'lib')
 require 'simhash'
 
 desc 'Default: run unit tests.'
 task :default => [:test]
+
+Rake::ExtensionTask.new('string_hashing')
 
 desc 'Test the simhash gem'
 Rake::TestTask.new(:test) do |t|
