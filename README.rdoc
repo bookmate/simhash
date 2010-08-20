@@ -16,13 +16,13 @@ It's always better to tokenize string before simhashing. It's as simple as
   
 This will generate 64-bit integer based, but will split string into words before. 
 It's handy when you need to calculate similarity of strings based on word usage.
-You can split string how you like: by letters, by sentences, by specific letter-combinations, etc.
+You can split string as you like: by letters/sentences/specific letter-combinations, etc.
 
 	my_string.simhash(:split_by => /./, :bitlength => 512)
   
 Sometimes you might need longer simhash (finding similarity for very long strings is a good example). 
 You can set length of result hash by passing bitlength parameter. This example will return 512-bit simhash
-for your string splitted by sentences
+for your string splitted by sentences.
 
 ==Advanced usage
 
@@ -38,7 +38,7 @@ Currently we remove only Russian and English stop-words.
 	my_string.simhash(:preserve_punctuation => true) # here we not
   
 This will not remove punctuation before simhashing. Yes, we remove all dots, commas, etc. after splitting string to words by default.
-Because different punctiation does not mean difference in general. If you not agree, you can turn this default off.
+Because different punctiation does not mean difference in general. If you not agree you can turn this default off.
 
 ==Installation
 
@@ -46,7 +46,7 @@ As usual:
 
 	gem install simhash
   
-But if you have {GNU MP library}[http://gmplib.org/], simhash will work faster! To check out what version used, type:
+But if you have {GNU MP library}[http://gmplib.org/], simhash will work faster! To check out which version is used, type:
 
 	Simhash::DEFAULT_STRING_HASH_METHOD
 	
