@@ -8,7 +8,7 @@ rescue LoadError
 end
 
 module Simhash  
-  DEFAULT_STRING_HASH_METHOD = String.public_instance_methods.include?("hash_wl") ? :hash_wl : :hash_wl_rb
+  DEFAULT_STRING_HASH_METHOD = String.public_instance_methods.include?("hash_vl") ? :hash_vl : :hash_vl_rb
   
   def self.hash(tokens, options={})
     hashbits = options[:hashbits] || 64

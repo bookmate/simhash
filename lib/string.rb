@@ -4,9 +4,9 @@ class String
     Simhash.hash(self.split(split_by), options)
   end
   
-  def hash_wl_rb(length)
+  def hash_vl_rb(length)
     return 0 if self == ""
-    puts "RUBY"
+
     x = self[0] << 7
     m = 1000003
     mask = (1<<length) - 1

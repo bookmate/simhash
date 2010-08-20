@@ -6,14 +6,15 @@ VALUE StringHashing = Qnil;
 
 void Init_string_hashing();
 
-VALUE method_hash_wl(VALUE self, VALUE bitlength);
+VALUE method_hash_vl(VALUE self, VALUE bitlength);
 
 void Init_string_hashing() {
-	rb_define_method(rb_cString, "hash_wl", method_hash_wl, 1);
+	rb_define_method(rb_cString, "hash_vl", method_hash_vl, 1);
 }
 
-VALUE method_hash_wl(VALUE self, VALUE bitlength) {
+VALUE method_hash_vl(VALUE self, VALUE bitlength) {
     int bl = NUM2INT(bitlength);
+    
     // for hard typecasting
     unsigned char one_char;
     char* result;
