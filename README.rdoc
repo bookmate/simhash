@@ -1,0 +1,53 @@
+==Absctract
+
+This is implementation of {Moses Charikar's simhashes}[http://portal.acm.org/citation.cfm?id=509965] in Ruby.
+
+==Usage
+
+When you have a string and want to calculate it's simhash, you should
+
+	my_string.simhash
+  
+By default it will generate 64-bit integer - that is simhash for this string 
+
+It's always better to tokenize string before simhashing. It's as simple as
+
+	my_string.simhash(:split_by => / /)
+  
+This will generate 64-bit integer based, but will split string into words before. 
+It's handy when you need to calculate similarity of strings based on word usage.
+You can split string how you like: by letters, by sentences, by specific letter-combinations, etc.
+
+	my_string.simhash(:split_by => /./, :bitlength => 512)
+  
+Sometimes you might need longer simhash (finding similarity for very long strings is a good example). 
+You can set length of result hash by passing bitlength parameter. This example will return 512-bit simhash
+for your string splitted by sentences
+
+==Advanced usage
+
+It's useful to clean your string before simhashing. But it's useful not to clean, too.
+
+Here are examples:
+
+	my_string.simhash(:stop_words => true) # here we clean
+
+This will find stop-words in your string and remove them before simhashing. Stop-words are "the", "not", "about", etc. 
+Currently we remove only Russian and English stop-words.
+
+	my_string.simhash(:preserve_punctuation => true) # here we not
+  
+This will not remove punctuation before simhashing. Yes, we remove all dots, commas, etc. after splitting string to words by default.
+Because different punctiation does not mean difference in general. If you not agree, you can turn this default off.
+
+==Installation
+
+As usual:
+
+	gem install simhash
+  
+But if you have {GNU MP library}[http://gmplib.org/], simhash will work faster! To check out what version used, type:
+
+	Simhash::DEFAULT_STRING_HASH_METHOD
+	
+It should return symbol. If symbol ends with "rb", your simhash is slow. If you want make it faster, install GNU MP.
