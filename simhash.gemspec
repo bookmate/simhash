@@ -23,10 +23,22 @@ spec = Gem::Specification.new do |s|
   s.require_path      = "lib"
   s.test_files        = Dir["test/**/test_*.rb"]
   s.extensions        = ["ext/string_hashing/extconf.rb"] 
+  
+  if s.respond_to? :specification_version then
+    current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
+    s.specification_version = 3
+
+    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<unicode>, [">= 0.3.1"])
+    else
+      s.add_dependency(%q<unicode>, [">= 0.3.1"])
+    end
+  else
+    s.add_dependency(%q<unicode>, [">= 0.3.1"])
+  end
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
-
 end
 
 Rake::ExtensionTask.new('string_hashing', spec)
