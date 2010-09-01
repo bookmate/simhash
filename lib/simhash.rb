@@ -1,8 +1,12 @@
 $KCODE = 'u' 
+
+require 'active_support/core_ext/string/multibyte'
 require 'unicode'
+
 require 'string'
 require 'integer'
 require 'simhash/stopwords'
+
 begin
   require 'string_hashing'
 rescue LoadError
@@ -30,7 +34,7 @@ module Simhash
       # cutting stop-words
       token = token.split(" ").reject{ |w| Stopwords::ALL.index(" #{w} ") != nil }.join(" ") if options[:stop_words]
             
-      next if token.size.zero? || token.size < token_min_size
+      next if token.size.zero? || token.mb_chars.size < token_min_size
       hashed_token = token.send(hashing_method, hashbits).to_i
       hashbits.times do |i|
         v[i] += (hashed_token & masks[i]).zero? ? -1 : +1
