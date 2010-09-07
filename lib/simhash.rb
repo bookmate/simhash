@@ -20,6 +20,7 @@ module Simhash
     hashbits = options[:hashbits] || 64
     token_min_size = options[:token_min_size].to_i
     hashing_method = options[:hashing_method] || DEFAULT_STRING_HASH_METHOD
+    stop_sentenses = options[:stop_sentenses]
     
     v = [0] * hashbits
     masks = v.dup
@@ -33,6 +34,9 @@ module Simhash
       
       # cutting stop-words
       token = token.split(" ").reject{ |w| Stopwords::ALL.index(" #{w} ") != nil }.join(" ") if options[:stop_words]
+    
+      # cutting stop-sentenses
+      next if stop_sentenses && stop_sentenses.include?(" #{token} ")
             
       next if token.size.zero? || token.mb_chars.size < token_min_size
       hashed_token = token.send(hashing_method, hashbits).to_i
