@@ -18,14 +18,29 @@ module Simhash
   
   def self.hash(tokens, options={})
     hashbits = options[:hashbits] || 64
-    token_min_size = options[:token_min_size].to_i
     hashing_method = options[:hashing_method] || DEFAULT_STRING_HASH_METHOD
-    stop_sentenses = options[:stop_sentenses]
-    
+        
     v = [0] * hashbits
     masks = v.dup
     masks.each_with_index {|e, i| masks[i] = (1 << i)}
     
+    self.each_filtered_token(tokens, options) do |token|
+      hashed_token = token.send(hashing_method, hashbits).to_i
+      hashbits.times do |i|
+        v[i] += (hashed_token & masks[i]).zero? ? -1 : +1
+      end
+    end
+   
+    fingerprint = 0
+
+    hashbits.times { |i| fingerprint += 1 << i if v[i] >= 0 }  
+      
+    fingerprint    
+  end
+  
+  def self.each_filtered_token(tokens, options={})
+    token_min_size = options[:token_min_size].to_i
+    stop_sentenses = options[:stop_sentenses]
     tokens.each do |token|
       # cutting punctuation (\302\240 is unbreakable space)
       token = token.gsub(/(\s|\d|\W|\302\240| *— *|[«»\…\-\–\—]| )+/u,' ') if !options[:preserve_punctuation]
@@ -39,17 +54,15 @@ module Simhash
       next if stop_sentenses && stop_sentenses.include?(" #{token} ")
             
       next if token.size.zero? || token.mb_chars.size < token_min_size
-      hashed_token = token.send(hashing_method, hashbits).to_i
-      hashbits.times do |i|
-        v[i] += (hashed_token & masks[i]).zero? ? -1 : +1
-      end
-    end
-   
-    fingerprint = 0
-
-    hashbits.times { |i| fingerprint += 1 << i if v[i] >= 0 }  
       
-    fingerprint    
+      yield token      
+    end
+  end
+  
+  def self.filtered_tokens(tokens, options={})
+    filtered_tokens = []
+    self.each_filtered_token(tokens, options) { |token| filtered_tokens << token }
+    filtered_tokens  
   end
   
   def self.hm
