@@ -19,14 +19,14 @@ VALUE method_hash_vl(VALUE self, VALUE bitlength) {
     unsigned char one_char;
     char* result;
     result = malloc(bl*sizeof(char));
-	unsigned long long len = RSTRING(self)->len;
-    char *string = RSTRING(self)->ptr;
+    unsigned long long len = RSTRING_LEN(self);
+    char *string = RSTRING_PTR(self);
 
-	if(len == 0){ return 0; }
+    if(len == 0){ return 0; }
 
-	mpz_t x, mask, long_len;
+    mpz_t x, mask, long_len;
     mpz_init_set_ui (long_len, len);
-    one_char = RSTRING(self)->ptr[0];
+    one_char = RSTRING_PTR(self)[0];
     mpz_init_set_ui (x, one_char << 7);
     int m = 1000003; 
     
@@ -47,8 +47,9 @@ VALUE method_hash_vl(VALUE self, VALUE bitlength) {
         mpz_xor(computations, computations, byte);
         mpz_and (x, mask, computations);
     }
-
+    
     mpz_xor(x, x, long_len);
+    //gmp_printf ("C xored x is %Zd\n", x);
     mpz_get_str (result, 10, x);
     VALUE res = rb_str_new2(result);
 
@@ -59,5 +60,5 @@ VALUE method_hash_vl(VALUE self, VALUE bitlength) {
     mpz_clear(long_len);
     free(result);
     
-	return res;
+    return res;
 }

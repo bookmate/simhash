@@ -1,4 +1,5 @@
-require 'test/helper'
+# encoding: utf-8
+require './test/helper'
 
 class SimhashStringTest < Test::Unit::TestCase
   def test_string_method
@@ -19,6 +20,7 @@ class SimhashStringTest < Test::Unit::TestCase
   
   def test_rb_hashing
     assert_equal "В начале".hash_vl(64).to_i, "В начале".hash_vl_rb(64).to_i
+    assert_equal "было слово".hash_vl(64).to_i, "было слово".hash_vl_rb(64).to_i
   end
-  
+
 end

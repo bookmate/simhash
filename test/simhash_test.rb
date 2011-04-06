@@ -1,4 +1,5 @@
-require 'test/helper'
+# encoding: utf-8
+require './test/helper'
 
 class SimhashTest < Test::Unit::TestCase
   def test_hashing

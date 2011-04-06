@@ -37,7 +37,7 @@ if RUBY_PLATFORM.include?( 'darwin' )
   end
 end
 
-if find_header("gmp.h")
+if (find_header("gmp.h") rescue false)
   $stderr.puts "Configuring extensions"
   dir_config(extension_name)
   create_makefile(extension_name)

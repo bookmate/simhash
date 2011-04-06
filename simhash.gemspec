@@ -1,5 +1,3 @@
-require 'rake/extensiontask'
-
 $LOAD_PATH << File.join(File.dirname(__FILE__), 'lib')
 
 include_files = ["README*", "LICENSE", "Rakefile", "init.rb", "{lib,rails,ext}/**/*"].map do |glob|
@@ -11,7 +9,7 @@ end.flatten
 
 spec = Gem::Specification.new do |s|
   s.name              = "simhash"
-  s.version           = "0.2.3"
+  s.version           = "0.2.4"
   s.author            = "Alex Gusev"
   s.email             = "alex.gusev@bookmate.ru"
   s.homepage          = "http://github.com/bookmate/simhash"
@@ -40,8 +38,3 @@ spec = Gem::Specification.new do |s|
     s.add_dependency(%q<activesupport>)
   end
 end
-
-Rake::GemPackageTask.new(spec) do |pkg|
-end
-
-Rake::ExtensionTask.new('string_hashing', spec)

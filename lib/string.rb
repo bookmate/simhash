@@ -7,12 +7,12 @@ class String
   def hash_vl_rb(length)
     return 0 if self == ""
 
-    x = self[0] << 7
+    x = self.bytes.first << 7
     m = 1000003
     mask = (1<<length) - 1
-    self.each_byte{ |char| x = ((x * m) ^ char) & mask }
-      
-    x ^= self.size
+    self.each_byte{ |char| x = ((x * m) ^ char.to_i) & mask }
+
+    x ^= self.bytes.count
     x = -2 if x == -1
     x
   end

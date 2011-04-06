@@ -1,4 +1,4 @@
-$KCODE = 'u' 
+# encoding: utf-8
 
 require 'active_support/core_ext/string/multibyte'
 require 'unicode'
@@ -12,9 +12,10 @@ begin
 rescue LoadError
 end
 
-
 module Simhash  
   DEFAULT_STRING_HASH_METHOD = String.public_instance_methods.include?("hash_vl") ? :hash_vl : :hash_vl_rb
+  PUNCTUATION_REGEXP = /(\s|\d|\W|\302\240| *— *|[«»…\-–—]| )+/u
+  
   
   def self.hash(tokens, options={})
     hashbits = options[:hashbits] || 64
@@ -43,7 +44,7 @@ module Simhash
     stop_sentenses = options[:stop_sentenses]
     tokens.each do |token|
       # cutting punctuation (\302\240 is unbreakable space)
-      token = token.gsub(/(\s|\d|\W|\302\240| *— *|[«»\…\-\–\—]| )+/u,' ') if !options[:preserve_punctuation]
+      token = token.gsub(PUNCTUATION_REGEXP, ' ') if !options[:preserve_punctuation]
       
       token = Unicode::downcase(token.strip)
       

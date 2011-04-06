@@ -1,4 +1,4 @@
-require 'test/helper'
+require './test/helper'
 
 class SimhashIntegerTest < Test::Unit::TestCase
   def test_hamming_distance
