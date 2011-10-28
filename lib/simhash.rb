@@ -14,7 +14,11 @@ end
 
 module Simhash  
   DEFAULT_STRING_HASH_METHOD = String.public_instance_methods.include?("hash_vl") ? :hash_vl : :hash_vl_rb
-  PUNCTUATION_REGEXP = /(\s|\d|\W|\302\240| *— *|[«»…\-–—]| )+/u
+  PUNCTUATION_REGEXP = if RUBY_VERSION >= "1.9"
+    /(\s|\d|[^\p{L}]|\302\240| *— *|[«»…\-–—]| )+/u
+  else
+    /(\s|\d|\W|\302\240| *— *|[«»…\-–—]| )+/u
+  end
   
   
   def self.hash(tokens, options={})

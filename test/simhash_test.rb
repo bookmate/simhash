@@ -4,6 +4,7 @@ require './test/helper'
 class SimhashTest < Test::Unit::TestCase
   def test_hashing
     assert_equal Simhash.hash("In the beginning was the Word".split, :hashbits => 64, :token_min_size => 2).to_s, "17095628911399577086"     
+    assert_equal Simhash.hash("In the beginning was the Word".split(/./), :hashbits => 64, :token_min_size => 2).to_s, "18446744073709551615"
   end
   
   def test_case_insensivity
