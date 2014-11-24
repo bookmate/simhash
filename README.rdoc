@@ -18,10 +18,10 @@ This will generate 64-bit integer based, but will split string into words before
 It's handy when you need to calculate similarity of strings based on word usage.
 You can split string as you like: by letters/sentences/specific letter-combinations, etc.
 
-	my_string.simhash(:split_by => /./, :bitlength => 512)
+	my_string.simhash(:split_by => /./, :hashbits => 512)
   
 Sometimes you might need longer simhash (finding similarity for very long strings is a good example). 
-You can set length of result hash by passing bitlength parameter. This example will return 512-bit simhash
+You can set length of result hash by passing hashbits parameter. This example will return 512-bit simhash
 for your string splitted by sentences.
 
 ==Advanced usage
