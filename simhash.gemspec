@@ -9,7 +9,7 @@ end.flatten
 
 spec = Gem::Specification.new do |s|
   s.name              = "simhash"
-  s.version           = "0.2.5"
+  s.version           = "1.0.0"
   s.author            = "Alex Gusev"
   s.email             = "alex.gusev@bookmate.ru"
   s.homepage          = "http://github.com/bookmate/simhash"

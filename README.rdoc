@@ -51,3 +51,11 @@ But if you have {GNU MP library}[http://gmplib.org/], simhash will work faster! 
 	Simhash::DEFAULT_STRING_HASH_METHOD
 	
 It should return symbol. If symbol ends with "rb", your simhash is slow. If you want make it faster, install GNU MP.
+
+To build C extensions:
+  
+    cd ext/string_hashing
+    ARCHFLAGS='-arch x84_64' ruby extconf.rb
+    make
+
+You might be able to omit `ARCHFLAGS` or use a different version.
